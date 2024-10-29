@@ -17,6 +17,42 @@
   - [Key Selection Guide](#key-selection-guide)
   - [Performance Optimization](#performance-optimization)
 
+Amazon DynamoDB is a fully managed, serverless NoSQL database service that provides fast and predictable performance with seamless scalability. Key features include:
+
+- **Serverless**: No servers to manage, scales automatically
+- **Performance**: Single-digit millisecond latency at any scale
+- **Regional**: Available in multiple regions, region-specific endpoints
+- **Scalability**: Handles >10 trillion requests per day and >20 million requests per second
+- **Durability**: Data is replicated across multiple AZs with 99.999999999% durability
+- **Enterprise Ready**:
+  - ACID transactions
+  - Point-in-time recovery
+  - On-demand backup and restore
+  - Encryption at rest
+
+**Schema Flexibility**:
+- **Schemaless Design**: No need to predefine attributes except for the primary key
+- **Required Schema Elements**:
+  - Table name
+  - Primary key (must be defined at table creation)
+    - Partition key (required)
+    - Sort key (optional) (we can't add this after the table is created)
+  - Capacity mode (provisioned or on-demand)
+- **Optional Schema Elements**:
+  - Secondary indexes (GSI/LSI)
+  - TTL settings
+  - Encryption settings
+  - Stream settings
+  - Tags
+
+**Use Cases**:
+- Gaming leaderboards
+- Session management
+- IoT device data
+- E-commerce shopping carts
+- Real-time big data
+- Mobile/web backends
+
 ## Tables, Items, and Attributes
 
 ### Tables
