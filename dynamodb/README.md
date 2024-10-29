@@ -37,8 +37,25 @@
 - Each item is composed of one or more attributes
 - Types include:
   - Scalar Types (String, Number, Boolean, Null, Binary)
+    - String: "Hello World"
+    - Number: 42, 3.14, -10
+    - Boolean: true, false
+    - Null: null
+    - Binary: Base64-encoded binary data
   - Document Types (List, Map)
+    - List: ["apple", "banana", 123, true]
+    - Map: {
+        "name": "John",
+        "age": 30,
+        "address": {
+          "street": "123 Main St",
+          "city": "Seattle"
+        }
+      }
   - Set Types (String Set, Number Set, Binary Set)
+    - String Set: {"apple", "banana", "cherry"}
+    - Number Set: {1, 2, 3, 4, 5}
+    - Binary Set: {01010101, 10101010}
 
 ## Indexes
 
@@ -57,6 +74,7 @@
 
 1. **Global Secondary Index (GSI)**
    - Index with partition key and optional sort key different from the base table
+   - instead of querying with partition key and sort key, you can query with the GSI
    - Can be created or deleted any time
    - Has its own provisioned throughput settings
    - Maximum of 20 GSIs per table
