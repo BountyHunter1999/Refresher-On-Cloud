@@ -1,5 +1,22 @@
 # DynamoDB Core Concepts
 
+## Table of Contents
+- [Tables, Items, and Attributes](#tables-items-and-attributes)
+  - [Tables](#tables)
+  - [Items](#items)
+  - [Attributes](#attributes)
+- [Indexes](#indexes)
+  - [Primary Key Types](#primary-key-types)
+  - [Secondary Indexes](#secondary-indexes)
+- [Partition Key and Sort Key Deep Dive](#partition-key-and-sort-key-deep-dive)
+  - [Partition Key (Hash Key)](#partition-key-hash-key)
+  - [Sort Key (Range Key)](#sort-key-range-key)
+  - [Composite Key Examples](#composite-key-examples)
+  - [Best Practices](#best-practices)
+- [Design Strategies](#design-strategies)
+  - [Key Selection Guide](#key-selection-guide)
+  - [Performance Optimization](#performance-optimization)
+
 ## Tables, Items, and Attributes
 
 ### Tables
@@ -106,3 +123,54 @@
 - Avoid hot partitions by distributing data evenly
 - Consider future growth and query requirements
 - Use GSI/LSI when additional access patterns are needed
+
+## Design Strategies
+
+### Key Selection Guide
+
+1. **When to Use Partition Key Only:**
+   - For quick lookups of known, globally unique keys
+   - Ideal for:
+     - UUID lookups
+     - Email address lookups
+     - Product ID lookups
+   ```
+   // Example: User lookup by UUID
+   PartitionKey: userId (uuid)
+   ```
+
+2. **When to Use Partition Key + Sort Key:**
+   - For non-unique keys
+   - When range-based queries are needed
+   - Examples of range operations:
+     - Get all orders for a customer between dates
+     - Find all products in a category with price > X
+   ```
+   // Example: Customer orders
+   PartitionKey: customerId
+   SortKey: orderDate
+   ```
+
+### Performance Optimization
+
+1. **Key Composition Strategies:**
+   - Use prefixes/suffixes to distribute data
+   ```
+   // Instead of
+   PartitionKey: "2024-03"
+   
+   // Use
+   PartitionKey: "ORDER#2024-03"
+   PartitionKey: "PRODUCT#2024-03"
+   ```
+
+2. **DynamoDB Accelerator (DAX)**
+   - In-memory caching layer for DynamoDB
+   - Benefits:
+     - Bypasses the 3000 RCU partition limit
+     - Microsecond latency for cached reads
+     - Ideal for read-heavy workloads
+   - Considerations:
+     - Backed by EC2 instances (additional cost)
+     - Best for read-heavy and repetitive request patterns
+     - Not suitable for strongly consistent read requirements
