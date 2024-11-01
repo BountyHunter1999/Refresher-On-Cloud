@@ -46,6 +46,7 @@ Amazon DynamoDB is a fully managed, serverless NoSQL database service that provi
       - Can use auto-scaling to adjust capacity
       - 1 RCU = 1 strongly consistent read/sec for items up to 4KB
       - 1 WCU = 1 write/sec for items up to 1KB
+      - **Use when**: Workloads are predictable, and consistent performance is required.
     
     - **On-Demand Capacity Mode**:
       - Pay-per-request pricing
@@ -54,6 +55,7 @@ Amazon DynamoDB is a fully managed, serverless NoSQL database service that provi
       - Best for unpredictable workloads
       - Higher per-request cost than provisioned
       - Can switch between modes once per 24 hours
+      - **Use when**: Workloads are random and unpredictable.
 - **Optional Schema Elements**:
   - Secondary indexes (GSI/LSI)
   - TTL settings
